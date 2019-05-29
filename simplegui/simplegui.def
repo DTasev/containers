@@ -1,0 +1,21 @@
+Bootstrap: docker 
+From: python:3.7
+
+# %setup
+#     wget https://github.com/neutronimaging/imagingsuite/releases/download/v4.1/muhrec_Linux_x86_64_20190523.tar.bz2 -P dl
+#     cd dl
+#     sudo tar xjf muhrec_Linux_x86_64_20190523.tar.bz2 
+#     rm muhrec_Linux_x86_64_20190523.tar.bz2
+
+%files
+    main.py /opt/main.py
+
+#%environment
+#    export LD_LIBRARY_PATH=/opt/muhrec/Frameworks/
+
+%post
+    
+    #apt update && apt install -y libgomp1 libccfits0v5 libtiff5 libfftw3-3 libnexus0v5 libgl1 qt5-default
+    
+%runscript
+    python /opt/main.py
