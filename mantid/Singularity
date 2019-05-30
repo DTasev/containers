@@ -1,0 +1,22 @@
+Bootstrap: docker
+From: mantidproject/mantid-development-ubuntubionic:latest
+
+%environment
+    export CCACHE_DIR=/ccache 
+
+# %files
+#     /home/dtasev/dev/m/ /mantid_src
+%post
+    git clone https://github.com/mantidproject/mantid.git /mantid_src
+
+%apprun build
+    cd /mantid_build && cmake /mantid_src -GNinja && ninja
+    
+%apprun mantidplot
+    cd /mantid_build && bin/MantidPlot
+
+%apprun workbench
+    cd /mantid_build && bin/workbench
+
+%apprun shell
+    exec /bin/bash "$@"
